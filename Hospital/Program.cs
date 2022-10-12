@@ -1,15 +1,21 @@
 using Hospital;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
+
+ 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<AplicationDbContext>(builder =>
-          builder.UseSqlServer("ApiConnection"));
+builder.Services.AddDbContext<AplicationDbContext>(options =>
+     options.UseSqlServer(builder.Configuration.GetConnectionString("ApiConnection")));
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 
 var app = builder.Build();
 

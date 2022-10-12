@@ -7,22 +7,28 @@ namespace Hospital.Entidades
     {
         [Key]
         [Required]
-        public int Id { get; set; }
+        public string Id { get; set; }
+        [ForeignKey(nameof(IdConsulta))]
         [Required]
-        [Column(TypeName = "varchar(100)")]
+        public string IdConsulta { get; set; }
+        [Required]
+        
         public string Nombre { get; set; }
         [Required]
-        [Column(TypeName = "varchar(100)")]
-        public string Apellidos { get; set; }
+        
+        public string PrimerApellido { get; set; }
         [Required]
-        [Column(TypeName = "varchar(100)")]
+
+        public string SegundoApellido { get; set; }
+        [Required]
+        
         public string Especialidad { get; set; }
         [Required]
-        [Column(TypeName = "varchar(50)")]
+        
 
         public string Email { get; set; }
         [Required]
-        [Column(TypeName = "varchar(50)")]
+        
         public string  Telefono { get; set; }
 
 

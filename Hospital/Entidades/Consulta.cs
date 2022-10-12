@@ -7,23 +7,24 @@ namespace Hospital.Entidades
     {
         public Consulta()
         {
-            pacientes = new HashSet<Paciente>();
-            consultaPacientes = new HashSet<Consulta_Paciente>();
+            Medicos= new HashSet<Medico>();
+            Seguimientos= new HashSet<Seguimientos>();
         }
 
 
         [Key]
         [Required]
-        public int Id { get; set; }
+        public string Id { get; set; }
         [Required]
-        [Column(TypeName="varchar(100)")]
+        
         public string  Nombre { get; set; }
-        [Required]
-        public int Id_Medico { get; set; }
+        
+        
 
-        public virtual ICollection<Paciente> pacientes { get; set; }
+        public virtual ICollection<Medico> Medicos { get; set; }
+        public virtual ICollection<Seguimientos> Seguimientos { get; set; }
 
-        public virtual ICollection<Consulta_Paciente> consultaPacientes { get; set; }
+        
 
     }
 }
