@@ -9,7 +9,7 @@ namespace Hospital.Mensajeria.Queries
        public class ListarMedicosResponse
         {
             public string Id { get; set; }
-            public string IdConsulta { get; set; }
+            public string ConsultaId { get; set; }
             public string NombreUnido { get; set; }
 
             public string Especialidad { get; set; }
@@ -24,7 +24,7 @@ namespace Hospital.Mensajeria.Queries
         public class ObtenerMedicoResponse
         {
             public string Id { get; set; }
-            public string IdConsulta { get; set; }
+            public string ConsultaId { get; set; }
             public string NombreUnido { get; set; }
 
             public string Especialidad { get; set; }

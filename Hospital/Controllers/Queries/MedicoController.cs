@@ -7,7 +7,7 @@ namespace Hospital.Controllers.Queries
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MedicoController : ControllerBase
+    public class MedicoController : Controller
     {
         private readonly IMediator _mediator;
 
@@ -18,22 +18,22 @@ namespace Hospital.Controllers.Queries
 
 
 
-        [HttpGet(Name = "ListarMedicos")]
+        [HttpPost("ListarMedicos")]
         [ProducesResponseType(typeof(IEnumerable<ListarMedicosResponse>), (int)System.Net.HttpStatusCode.OK)]
-        public async Task<IActionResult> ListarMedicos([FromQuery] ListarMedicosRequest request)
+        public async Task<IActionResult> ListarMedicos([FromBody] ListarMedicosRequest request)
         {
             var respuesta = await _mediator.Send(request);
             return Ok(respuesta);
         }
 
 
-        [HttpGet("{Id}")]
+        [HttpPost("ObtenerMedico")]
         [ProducesResponseType(typeof(ObtenerMedicoResponse), (int)System.Net.HttpStatusCode.OK)]
-    public async Task<IActionResult> ObtenerMedico([FromQuery] ObtenerMedicoRequest request)
-    {
-        var respuesta = await _mediator.Send(request);
-        return Ok(respuesta);
-    }
+         public async Task<IActionResult> ObtenerMedico([FromBody] ObtenerMedicoRequest request)
+        {
+            var respuesta = await _mediator.Send(request);
+             return Ok(respuesta);
+        }
 
 
 }

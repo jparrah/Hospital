@@ -25,5 +25,6 @@ namespace Hospital.Mensajeria.Command
                                     string Email,
                                     string Telefono,
                                     string Direccion) :IRequest<bool>;
+        public record EliminarPacienteRequest(string Id) : IRequest<bool>;
     }
 }

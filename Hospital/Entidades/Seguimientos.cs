@@ -7,25 +7,16 @@ namespace Hospital.Entidades
     {
 
         [Key]
-        
         public string Id { get; set; }
-        [ForeignKey(nameof(IdConsulta))]
-
-        public string IdConsulta { get; set; }
-
-        [ForeignKey(nameof(IdPaciente))]
-
-        public string IdPaciente { get; set; }
-
+        public string ConsultaId { get; set; }
+        public string PacienteId { get; set; }
         public string Diagnostico { get; set; }
-        
         public string Tratamiento { get; set; }
-        
         public string FechaConsultaInicial { get; set; }
-        
         public string FechaConsultaProxima { get; set; }
-        
         public bool PrimeraVez { get; set; }
+        public Consulta consulta  { get; set; }
+        public Paciente paciente { get; set; }
         
 
 

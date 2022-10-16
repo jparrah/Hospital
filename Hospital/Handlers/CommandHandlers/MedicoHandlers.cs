@@ -9,7 +9,8 @@ using Medico = Hospital.Entidades.Medico;
 namespace Hospital.Handlers.CommandHandlers
 {
     public class MedicoHandlers : IRequestHandler<RegistrarMedicoRequest, bool>,
-                                  IRequestHandler<ModificarMedicoRequest,bool>
+                                  IRequestHandler<ModificarMedicoRequest,bool>,
+                                  IRequestHandler<EliminarMedicoRequest, bool>
     {
         private readonly IMapper _mapper;
         private readonly AplicationDbContext _context;
@@ -41,6 +42,16 @@ namespace Hospital.Handlers.CommandHandlers
             await _context.SaveChangesAsync();
             result = true;
 
+            return result;
+        }
+
+        public async Task<bool> Handle(EliminarMedicoRequest request, CancellationToken cancellationToken)
+        {
+            var result = false;
+            var medico = _context.Medico.Where(x => x.Id == request.Id).FirstOrDefault();
+            _context.Medico.Remove(medico);
+            await _context.SaveChangesAsync();
+            result = true;
             return result;
         }
     }

@@ -17,6 +17,9 @@ namespace Hospital.Handlers.CommandHandlers
             CreateMap<RegistarConsultaRequest, Consulta>();
             CreateMap<RegistarSeguimientoPacienteRequest, Seguimientos>();
             CreateMap<RegistarPacienteRequest, Paciente>();
+            CreateMap<ModificarPacienteRequest, Paciente>();
+            CreateMap<RegistarSeguimientoPacienteRequest, Seguimientos>();
+            CreateMap<ModificarSeguimientoPacienteRequest, Seguimientos>();
         }
     }
 }

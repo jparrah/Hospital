@@ -11,7 +11,8 @@ using System.Linq;
 namespace Hospital.Handlers.CommandHandlers
 {
     public class ConsultaHandler : IRequestHandler<RegistarConsultaRequest, bool>,
-                                 IRequestHandler<ModificarConsultaRequest, bool>
+                                 IRequestHandler<ModificarConsultaRequest, bool>,
+                                 IRequestHandler<EliminarConsultaRequest, bool>
     {
         private readonly IMapper _mapper;
         private readonly AplicationDbContext _contexto;
@@ -26,20 +27,6 @@ namespace Hospital.Handlers.CommandHandlers
             
             var registro = false;
             var consulta = _mapper.Map<Consulta>(request);
-            
-
-            foreach (var item in request.Seguimientos)
-            {
-                var nuevoSeguimiento = _mapper.Map<Seguimientos>(item);
-                consulta.Seguimientos.Append(nuevoSeguimiento);
-                
-            }
-            foreach (var item in request.Medicos)
-            {
-                var nuevoMedico = _mapper.Map<Medico>(item);
-                consulta.Medicos.Append(nuevoMedico);
-                
-            }
             await _contexto.Consulta.AddAsync(consulta);
             _contexto.SaveChanges();
             
@@ -48,9 +35,32 @@ namespace Hospital.Handlers.CommandHandlers
             return registro;
         }
 
-        public Task<bool> Handle(ModificarConsultaRequest request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(ModificarConsultaRequest request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var resultado = false;
+            var consulta = _contexto.Consulta.Where(x => x.Id == request.Id).FirstOrDefault();
+            if(consulta != null)
+            {
+                consulta.Nombre=request.Nombre;
+                _contexto.Consulta.Update(consulta);
+                await _contexto.SaveChangesAsync();
+            }
+            
+            resultado = true;
+
+            return resultado; 
+
+
+        }
+
+        public async  Task<bool> Handle(EliminarConsultaRequest request, CancellationToken cancellationToken)
+        {
+            var result = false;
+            var consulta= _contexto.Consulta.Where(x => x.Id == request.Id).FirstOrDefault();
+            _contexto.Consulta.Remove(consulta);
+            await _contexto.SaveChangesAsync();
+            result = true;
+            return result;
         }
     }
 }

@@ -6,8 +6,8 @@ namespace Hospital.Mensajeria.Command
     {
         public record RegistarSeguimientoPacienteRequest(
                                      string Id,
-                                     string IdConsulta,
-                                     string IdPaciente,
+                                     string ConsultaId,
+                                     string PacienteId,
                                      string Diagnostico,
                                      string Tratamiento,
                                      string FechaConsultaInicial,
@@ -16,12 +16,14 @@ namespace Hospital.Mensajeria.Command
 
 
         public record ModificarSeguimientoPacienteRequest(
-                                     string Id,
-                                     string IdConsulta,
-                                     string IdPaciente,
+                                      string Id,
+                                     string ConsultaId,
+                                     string PacienteId,
+                                     string Diagnostico,
                                      string Tratamiento,
-                                     string FechaCita,
-                                     string FechaProximaCita,
+                                     string FechaConsultaInicial,
+                                     string FechaConsultaProxima,
                                      bool PrimeraVez) : IRequest<bool>;
+        public record EliminarSeguimientoPacienteRequest(string Id) : IRequest<bool>;
     }
 }

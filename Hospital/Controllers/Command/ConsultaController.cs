@@ -7,7 +7,7 @@ namespace Hospital.Controllers.Command
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ConsultaController : ControllerBase
+    public class ConsultaController : Controller
     {
         private readonly IMediator _mediator;
         public ConsultaController(IMediator mediator)
@@ -16,7 +16,7 @@ namespace Hospital.Controllers.Command
         }
 
 
-        [HttpPost(Name = "RegistrarConsulta")]
+        [HttpPost("RegistrarConsulta")]
         [ProducesResponseType(typeof(bool), (int)System.Net.HttpStatusCode.OK)]
         public async Task<IActionResult> RegistrarConsulta([FromBody] RegistarConsultaRequest request)
         {
@@ -25,9 +25,17 @@ namespace Hospital.Controllers.Command
         }
 
 
-        [HttpPut(Name = "ModificarConsulta")]
+        [HttpPost("ModificarConsulta")]
         [ProducesResponseType(typeof(bool), (int)System.Net.HttpStatusCode.OK)]
         public async Task<IActionResult> ModificarConsulta([FromBody] ModificarConsultaRequest request)
+        {
+            var respuesta = await _mediator.Send(request);
+            return Ok(respuesta);
+        }
+
+        [HttpPost("EliminarConsulta")]
+        [ProducesResponseType(typeof(bool), (int)System.Net.HttpStatusCode.OK)]
+        public async Task<IActionResult> EliminarConsulta([FromBody] EliminarConsultaRequest request)
         {
             var respuesta = await _mediator.Send(request);
             return Ok(respuesta);

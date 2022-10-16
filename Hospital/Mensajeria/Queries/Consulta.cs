@@ -14,9 +14,6 @@ namespace Hospital.Mensajeria.Queries
             public string Id { get; set; }
 
             public string Nombre { get; set; }
-
-            public IEnumerable<ListarSeguimientoPacientesResponse> Seguimientos { get; set; }
-            public IEnumerable<ListarMedicosResponse> Medicos { get; set; }
         }
 
         public record ObtenerConsultaRequest(string Id):IRequest<ObtenerConsultaResponse>;
@@ -25,9 +22,6 @@ namespace Hospital.Mensajeria.Queries
         {
             public string Id { get; set; }
             public string Nombre { get; set; }
-            public IEnumerable<ListarSeguimientoPacientesResponse> Seguimientos { get; set; }
-            public IEnumerable<ListarMedicosResponse> Medicos { get; set; }
-
         }
     }
 }

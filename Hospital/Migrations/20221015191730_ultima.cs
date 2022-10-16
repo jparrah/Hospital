@@ -4,7 +4,7 @@
 
 namespace Hospital.Migrations
 {
-    public partial class tercera : Migration
+    public partial class ultima : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -26,7 +26,8 @@ namespace Hospital.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Apellidos = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PrimerApellido = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SegundoApellido = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Edad = table.Column<int>(type: "int", nullable: false),
                     Sexo = table.Column<string>(type: "nvarchar(1)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -43,14 +44,13 @@ namespace Hospital.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    IdConsulta = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ConsultaId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PrimerApellido = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SegundoApellido = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Especialidad = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Telefono = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ConsultaId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    Telefono = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -59,7 +59,8 @@ namespace Hospital.Migrations
                         name: "FK_Medico_Consulta_ConsultaId",
                         column: x => x.ConsultaId,
                         principalTable: "Consulta",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -67,15 +68,13 @@ namespace Hospital.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    IdConsulta = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IdPaciente = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ConsultaId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    PacienteId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Diagnostico = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Tratamiento = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FechaConsultaInicial = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FechaConsultaProxima = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PrimeraVez = table.Column<bool>(type: "bit", nullable: false),
-                    ConsultaId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    PacienteId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    PrimeraVez = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -84,12 +83,14 @@ namespace Hospital.Migrations
                         name: "FK_Seguimientos_Consulta_ConsultaId",
                         column: x => x.ConsultaId,
                         principalTable: "Consulta",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Seguimientos_Paciente_PacienteId",
                         column: x => x.PacienteId,
                         principalTable: "Paciente",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

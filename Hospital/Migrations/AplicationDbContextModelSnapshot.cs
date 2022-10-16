@@ -41,6 +41,7 @@ namespace Hospital.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ConsultaId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Email")
@@ -48,10 +49,6 @@ namespace Hospital.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Especialidad")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IdConsulta")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -83,10 +80,6 @@ namespace Hospital.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Apellidos")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Direccion")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -99,6 +92,14 @@ namespace Hospital.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PrimerApellido")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SegundoApellido")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -121,6 +122,7 @@ namespace Hospital.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ConsultaId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Diagnostico")
@@ -135,15 +137,8 @@ namespace Hospital.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("IdConsulta")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IdPaciente")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("PacienteId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("PrimeraVez")
@@ -164,20 +159,32 @@ namespace Hospital.Migrations
 
             modelBuilder.Entity("Hospital.Entidades.Medico", b =>
                 {
-                    b.HasOne("Hospital.Entidades.Consulta", null)
+                    b.HasOne("Hospital.Entidades.Consulta", "consulta")
                         .WithMany("Medicos")
-                        .HasForeignKey("ConsultaId");
+                        .HasForeignKey("ConsultaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("consulta");
                 });
 
             modelBuilder.Entity("Hospital.Entidades.Seguimientos", b =>
                 {
-                    b.HasOne("Hospital.Entidades.Consulta", null)
+                    b.HasOne("Hospital.Entidades.Consulta", "consulta")
                         .WithMany("Seguimientos")
-                        .HasForeignKey("ConsultaId");
+                        .HasForeignKey("ConsultaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("Hospital.Entidades.Paciente", null)
+                    b.HasOne("Hospital.Entidades.Paciente", "paciente")
                         .WithMany("Seguimientos")
-                        .HasForeignKey("PacienteId");
+                        .HasForeignKey("PacienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("consulta");
+
+                    b.Navigation("paciente");
                 });
 
             modelBuilder.Entity("Hospital.Entidades.Consulta", b =>

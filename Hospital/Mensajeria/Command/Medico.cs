@@ -6,7 +6,7 @@ namespace Hospital.Mensajeria.Command
     {
         public record RegistrarMedicoRequest(
                             string Id,
-                            string IdConsulta,
+                            string ConsultaId,
                             string Nombre,
                             string PrimerApellido,
                             string SegundoApellido,
@@ -16,16 +16,18 @@ namespace Hospital.Mensajeria.Command
 
         public record ModificarMedicoRequest(
                             string Id,
-                            string IdConsulta,
+                            string ConsultaId,
                             string Nombre,
-                            string Apellidos,
+                            string PrimerApellido,
+                            string SegundoApellido,
                             string Especialidad,
                             string Email,
                             string Telefono) :IRequest<bool>;
+        public record EliminarMedicoRequest(string Id) : IRequest<bool>;
 
-        
 
-        }
+
+    }
 
     }
 

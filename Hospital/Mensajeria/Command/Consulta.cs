@@ -9,13 +9,13 @@ namespace Hospital.Mensajeria.Command
     {
         public record RegistarConsultaRequest(
                                     string Id,
-                                    string Nombre,
-                                    IEnumerable<RegistarSeguimientoPacienteRequest>Seguimientos,
-                                    IEnumerable<RegistrarMedicoRequest> Medicos):IRequest<bool>;
+                                    string Nombre
+                                    ):IRequest<bool>;
         public record ModificarConsultaRequest(
                                     string Id,
-                                    string Nombre,
-                                    IEnumerable<RegistarSeguimientoPacienteRequest> Seguimientos,
-                                    IEnumerable<RegistrarMedicoRequest> Medicos) :IRequest<bool>;
+                                    string Nombre
+                                    ) :IRequest<bool>;
+
+        public record EliminarConsultaRequest(string Id):IRequest<bool>;
     }
 }

@@ -12,23 +12,15 @@ namespace Hospital.Entidades
 
         }
         [Key]
-        [Required]
         public string Id { get; set; }
-        [Required]
         public string Nombre { get; set; }
-        [Required]
-        public string Apellidos { get; set; }
-        [Required]
+        public string PrimerApellido { get; set; }
+        public string SegundoApellido { get; set; }
         public int Edad { get; set; }
-        [Required]
         public char Sexo { get; set; }
-        [Required]
         public string Email { get; set; }
-        [Required]
         public string Telefono { get; set; }
-        [Required]
         public string Direccion { get; set; }
-
         public virtual ICollection<Seguimientos> Seguimientos { get; set; }
 
 

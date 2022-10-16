@@ -6,7 +6,8 @@ using static Hospital.Mensajeria.Command.Paciente;
 namespace Hospital.Handlers.CommandHandlers
 {
     public class PacienteHandler : IRequestHandler<RegistarPacienteRequest, bool>,
-                                 IRequestHandler<ModificarPacienteRequest, bool>
+                                 IRequestHandler<ModificarPacienteRequest, bool>,
+                                IRequestHandler<EliminarPacienteRequest, bool>
     {
         private readonly IMapper _mapper;
         private readonly AplicationDbContext _context;
@@ -27,9 +28,26 @@ namespace Hospital.Handlers.CommandHandlers
             return registro;
         }
 
-        public Task<bool> Handle(ModificarPacienteRequest request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(ModificarPacienteRequest request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var result = false;
+
+            var paciente = _mapper.Map<Paciente>(request);
+            _context.Paciente.Update(paciente);
+            await _context.SaveChangesAsync();
+            result = true;
+
+            return result;
+        }
+
+        public async Task<bool> Handle(EliminarPacienteRequest request, CancellationToken cancellationToken)
+        {
+            var result = false;
+            var paciente = _context.Paciente.Where(x => x.Id == request.Id).FirstOrDefault();
+            _context.Paciente.Remove(paciente);
+            await _context.SaveChangesAsync();
+            result = true;
+            return result;
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Hospital.Controllers.Command
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MedicoController : ControllerBase
+    public class MedicoController : Controller
     {
         private readonly IMediator _mediator;
         public MedicoController(IMediator mediator)
@@ -18,7 +18,7 @@ namespace Hospital.Controllers.Command
 
 
 
-        [HttpPost(Name = "RegistrarMedico")]
+        [HttpPost("RegistrarMedico")]
         [ProducesResponseType(typeof(bool), (int)System.Net.HttpStatusCode.OK)]
         public async Task<IActionResult> RegistrarMedico([FromBody] RegistrarMedicoRequest request)
         {
@@ -28,9 +28,17 @@ namespace Hospital.Controllers.Command
 
 
 
-        [HttpPut(Name = "ModificarMedico")]
+        [HttpPost("ModificarMedico")]
         [ProducesResponseType(typeof(bool), (int)System.Net.HttpStatusCode.OK)]
         public async Task<IActionResult> ModificarMedico([FromBody] ModificarMedicoRequest request)
+        {
+            var respuesta = await _mediator.Send(request);
+            return Ok(respuesta);
+        }
+
+        [HttpPost("EliminarMedico")]
+        [ProducesResponseType(typeof(bool), (int)System.Net.HttpStatusCode.OK)]
+        public async Task<IActionResult> EliminarMedico([FromBody] EliminarMedicoRequest request)
         {
             var respuesta = await _mediator.Send(request);
             return Ok(respuesta);

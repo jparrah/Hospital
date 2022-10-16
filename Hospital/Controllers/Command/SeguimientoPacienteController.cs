@@ -7,7 +7,7 @@ namespace Hospital.Controllers.Command
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SeguimientoPacienteController : ControllerBase
+    public class SeguimientoPacienteController : Controller
     {
         private readonly IMediator _mediator;
         public SeguimientoPacienteController(IMediator mediator)
@@ -15,7 +15,7 @@ namespace Hospital.Controllers.Command
             _mediator = mediator;   
         }
 
-        [HttpPost(Name = "RegistrarSeguimientoPaciente")]
+        [HttpPost("RegistrarSeguimientoPaciente")]
         [ProducesResponseType(typeof(bool), (int)System.Net.HttpStatusCode.OK)]
         public async Task<IActionResult> RegistrarSeguimientoPaciente([FromBody] RegistarSeguimientoPacienteRequest request)
         {
@@ -24,9 +24,17 @@ namespace Hospital.Controllers.Command
         }
 
 
-        [HttpPut(Name = "ModificarSeguimientoPaciente")]
+        [HttpPost("ModificarSeguimientoPaciente")]
         [ProducesResponseType(typeof(bool), (int)System.Net.HttpStatusCode.OK)]
         public async Task<IActionResult> ModificarSeguimientoPaciente([FromBody] ModificarSeguimientoPacienteRequest request)
+        {
+            var respuesta = await _mediator.Send(request);
+            return Ok(respuesta);
+        }
+
+        [HttpPost("EliminarSeguimientoPaciente")]
+        [ProducesResponseType(typeof(bool), (int)System.Net.HttpStatusCode.OK)]
+        public async Task<IActionResult> EliminarSeguimientoPaciente([FromBody] EliminarSeguimientoPacienteRequest request)
         {
             var respuesta = await _mediator.Send(request);
             return Ok(respuesta);
